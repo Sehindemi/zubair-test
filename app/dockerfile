@@ -1,0 +1,10 @@
+FROM python:3.8-slim
+
+WORKDIR /app
+
+COPY . .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Apply model changes to the database before starting the server
+CMD ["sh", "-c", "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py startserver 0.0.0.0:5000"]
