@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: charlie-ecr
+    permissions:
+      security-events: write
     steps:
       - name: Get Code
         uses: actions/checkout@v3
@@ -59,3 +61,5 @@ jobs:
           sarif_file: 'trivy-scan-result.sarif'
           wait-for-processing: true 
           category: 'image'
+        env:
+          GITHUB_TOKEN: 
