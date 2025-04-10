@@ -1,14 +1,13 @@
 name: docker build to ECR
 on: 
   workflow_dispatch:
+permissions:
+      security-events: write 
 jobs:
   AWS-Login:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: charlie-ecr
-    permissions:
-      security-events: write 
-
     steps:
       - name: Get Code
         uses: actions/checkout@v3
