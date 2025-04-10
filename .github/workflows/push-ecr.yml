@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: charlie-ecr
-    # permissions:
-    #   security-events: write
+    permissions:
+      security-events: write
 
     steps:
       - name: Get Code
