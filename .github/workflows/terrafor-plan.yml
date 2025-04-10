@@ -1,7 +1,7 @@
-name: terraform apply
-on: 
-  workflow_dispacth:
-jobs:
-  terraform-apply:
-    runs-on: ubuntu-latest
-    defaults:
+# name: terraform apply
+# on: 
+#   workflow_dispa:
+# jobs:
+#   terraform-apply:
+#     runs-on: ubuntu-latest
+#     defaults:

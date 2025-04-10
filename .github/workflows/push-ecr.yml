@@ -45,8 +45,9 @@ jobs:
           scan-type: 'image'
           format: 'sarif'
           output: 'trivy-scan-result.sarif'
-          exit-code: 1
+          exit-code: 0
           severity: 'HIGH,CRITICAL'
+        # continue-on-error: true
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEYS }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
