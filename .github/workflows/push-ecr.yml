@@ -32,8 +32,8 @@ jobs:
       - name: build and push image
         run: |
           docker build -t charlie_ecr  ./app
-          docker tag charlie_ecr:latest ${{ secrets.REGISTRY_NAME}}/charlie_ecr:latest
-          docker push ${{secrets.REGISTRY_NAME }}/charlie_ecr:latest
+          docker tag charlie-ecr:latest ${{ secrets.REGISTRY_NAME}}/charlie-ecr:latest 
+          docker push ${{secrets.REGISTRY_NAME }}/charlie-ecr:latest
 
           
 
