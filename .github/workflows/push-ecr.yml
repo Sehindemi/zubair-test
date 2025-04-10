@@ -4,6 +4,8 @@ on:
 jobs:
   AWS-Login:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: charlie-ecr
     steps:
       - name: Get Code
         uses: actions/checkout@v3
@@ -36,4 +38,23 @@ jobs:
           docker push ${{secrets.REGISTRY_NAME }}/charlie-ecr:latest
 
           
+      - name: trivy image scan 
+        uses: aquasecurity/trivy-action@0.30.0
+        with:
+          image-ref: '${{ secrets.REGISTRY_NAME }}/charlie-ecr:latest'
+          scan-type: 'image'
+          format: 'sarif'
+          output: 'trivy-scan-result.sarif'
+          exit-code: 1
+          severity: 'HIGH,CRITICAL'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEYS }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
 
+      - name: upload scan result to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with: 
+          sarif_file: 'trivy-scan-result.sarif'
+          wait-for-processing: true 
+          category: 'image'
