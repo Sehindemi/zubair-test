@@ -11,6 +11,29 @@ jobs:
       - name: Login to AWS
         uses: aws-actions/configure-aws-credentials@v4.1.0
         with:
-          aws-access-key-id: ${{secrets.ACCESS_KEYS}}
-          aws-secret-access-key: ${{secrets.SECRET_ACCESS_KEY}}
-          aws-region: ${{secrets.REGION}}
+          aws-access-key-id: ${{ secrets.ACCESS_KEYS }}
+          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.REGION }}
+
+      # - name: Login to ECR
+      #   id: ECR-login
+      #   uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Login to AWS ECR
+        uses: docker/login-action@v3.4.0
+        with:
+          registry: ${{ secrets.REGISTRY_NAME }}
+          username: ${{ secrets.ACCESS_KEYS }}
+          password: ${{ secrets.SECRET_ACCESS_KEY }}
+        env:
+          AWS_REGION: ${{ secrets.REGION }}
+
+
+      - name: build and push image
+        run: |
+          docker build -t charlie_ecr  .
+          docker tag charlie_ecr:latest ${{ secrets.REGISTRY_NAME}}/charlie_ecr:latest
+          docker push ${{secrets.REGISTRY_NAME }}/charlie_ecr:latest
+
+          
+
