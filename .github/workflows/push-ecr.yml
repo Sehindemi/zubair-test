@@ -31,7 +31,7 @@ jobs:
 
       - name: build and push image
         run: |
-          docker build -t charlie_ecr  ./app
+          docker build -t charlie-ecr  ./app
           docker tag charlie-ecr:latest ${{ secrets.REGISTRY_NAME}}/charlie-ecr:latest 
           docker push ${{secrets.REGISTRY_NAME }}/charlie-ecr:latest
 
