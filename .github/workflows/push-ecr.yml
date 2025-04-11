@@ -62,4 +62,4 @@ jobs:
           wait-for-processing: true 
           category: 'image'
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }} 
